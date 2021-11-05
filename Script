@@ -1,0 +1,17 @@
+$username='Zeeshan.saeed@systemsltd.com' 
+$password='Bigboss@1234'
+
+$ie = New-Object -ComObject 'chrome.Application'
+$ie.Visible= $true
+$ie.Navigate("https://lcs.dynamics.com/DeploymentPortal/Workspace/1598373")
+
+while ($ie.Busy -eq $true){Start-Sleep -seconds 1;}   
+
+$usernamefield = $ie.Document.getElementByID('memberemail')
+$usernamefield.value = $username
+
+$passwordfield = $ie.Document.getElementByID('memberpassword')
+$passwordfield.value = $password
+
+$Link=$ie.Document.getElementsByTagName("Export") | where-object {$_.className -eq "button"}
+$Link.click()
